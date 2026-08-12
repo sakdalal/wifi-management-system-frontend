@@ -1,0 +1,66 @@
+.dashboard{
+    padding: 30px;
+    background: wheat;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.dashboard-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard h1{
+    color: black;
+}
+
+.kpi-container {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.kpi-card {
+    background: rgb(206, 187, 187);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-card p {
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.kpi-card h2 {
+  margin: 0;
+}
+
+.chart-card{
+    background: white;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  margin-top: 25px;
+}
+
+.plans-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.plans-table th,
+.plans-table td {
+  padding: 12px;
+
+  text-align: left;
+
+  border-bottom:
+    1px solid #eee;
+}
