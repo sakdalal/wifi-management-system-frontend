@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
-import { use } from "react";
 import KPICard from "../components/dashboard/KPICard.jsx";
 import RevenueChart from "../components/dashboard/RevenueChart.jsx";
 import CustomerGrowthChart from "../components/dashboard/CustomerGrowthChart.jsx";
@@ -16,6 +15,7 @@ function Dashboard() {
   const fetchDashboard = async () => {
     try {
       const response = await api.get("/dashboard/summary");
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       console.log(response.data);
       setDashboardData(response.data);
     } catch (error) {
@@ -24,8 +24,24 @@ function Dashboard() {
   };
 
   if (!dashboardData) {
-    return <h2>Loading dashboard...</h2>;
-  }
+  return (
+    <div className="dashboard">
+      <div className="dashboard-content">
+        <h1>Loading Dashboard.......</h1>
+
+        <div className="kpi-container">
+          <div className="kpi-skeleton"></div>
+          <div className="kpi-skeleton"></div>
+          <div className="kpi-skeleton"></div>
+          <div className="kpi-skeleton"></div>
+        </div>
+
+        <div className="chart-skeleton"></div>
+        <div className="chart-skeleton"></div>
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="dashboard">
