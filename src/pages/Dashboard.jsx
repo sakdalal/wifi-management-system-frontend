@@ -15,7 +15,6 @@ function Dashboard() {
   const fetchDashboard = async () => {
     try {
       const response = await api.get("/dashboard/summary");
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       console.log(response.data);
       setDashboardData(response.data);
     } catch (error) {
@@ -47,7 +46,7 @@ function Dashboard() {
     <div className="dashboard">
       <div className="dashboard-content">
         <h1>Dashboard</h1>
-        <pre>{JSON.stringify(dashboardData, null, 2)};</pre>
+        {/* <pre>{JSON.stringify(dashboardData, null, 2)};</pre> */}
 
         <div className="kpi-container">
           <KPICard

@@ -1,0 +1,14 @@
+.nav-link {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+}
+
+.nav-link.active {
+    font-weight: 600;
+}
+
+.sidebar {
+    width: 240px;
+    padding: 20px;
+}

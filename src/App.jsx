@@ -4,10 +4,11 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import Dashboard from './pages/Dashboard'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
 
-  return <Dashboard/>;
+  return <AppRoutes/>;
 }
 
 export default App
