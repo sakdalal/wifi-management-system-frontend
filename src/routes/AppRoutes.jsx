@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard";
 import Subscriptions from "../pages/Subscriptions";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import CustomerPage from "../pages/CustomerPage";
 
 
 function AppRoutes(){
@@ -35,7 +36,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/customers"
-                            element={<Customers/>}
+                            element={<CustomerPage/>}
                         />
                         <Route
                             path="/payments"
