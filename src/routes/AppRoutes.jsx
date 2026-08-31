@@ -9,6 +9,12 @@ import Dashboard from "../pages/Dashboard";
 import Subscriptions from "../pages/Subscriptions";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import CustomerPage from "../pages/Customers/CustomerPage";
+import CustomerDetailPage from "../pages/Customers/CustomerDetailPage";
+import CustomerEditPage from "../pages/Customers/CustomerEditPage";
+import CustomerFormPage from "../pages/Customers/CustomerFormPage";
+import PlansPage from "../pages/Plans/PlansPage";
+
 
 
 function AppRoutes(){
@@ -35,7 +41,19 @@ function AppRoutes(){
                         />
                         <Route
                             path="/customers"
-                            element={<Customers/>}
+                            element={<CustomerPage/>}
+                        />
+                        <Route
+                            path="/customers/new"
+                            element={<CustomerFormPage/>}
+                        />
+                        <Route
+                            path="/customers/:id"
+                            element={<CustomerDetailPage/>}
+                        />
+                        <Route
+                            path="/customers/:id/edit"
+                            element={<CustomerEditPage/>}
                         />
                         <Route
                             path="/payments"
@@ -43,7 +61,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/plans"
-                            element={<Plans/>}
+                            element={<PlansPage/>}
                         />
                         <Route
                             path="/settings"
