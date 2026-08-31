@@ -13,6 +13,8 @@ import CustomerPage from "../pages/Customers/CustomerPage";
 import CustomerDetailPage from "../pages/Customers/CustomerDetailPage";
 import CustomerEditPage from "../pages/Customers/CustomerEditPage";
 import CustomerFormPage from "../pages/Customers/CustomerFormPage";
+import PlansPage from "../pages/Plans/PlansPage";
+
 
 
 function AppRoutes(){
@@ -59,7 +61,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/plans"
-                            element={<Plans/>}
+                            element={<PlansPage/>}
                         />
                         <Route
                             path="/settings"
