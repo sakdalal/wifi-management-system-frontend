@@ -14,6 +14,7 @@ import CustomerDetailPage from "../pages/Customers/CustomerDetailPage";
 import CustomerEditPage from "../pages/Customers/CustomerEditPage";
 import CustomerFormPage from "../pages/Customers/CustomerFormPage";
 import PlansPage from "../pages/Plans/PlansPage";
+import BillPage from "../pages/Bills/BillPage";
 
 
 
@@ -68,8 +69,8 @@ function AppRoutes(){
                             element={<Settings/>}
                         />
                         <Route
-                            path="/subscriptions"
-                            element={<Subscriptions/>}
+                            path="/bills"
+                            element={<BillPage/>}
                         />
 
                     </Route>
