@@ -56,12 +56,12 @@ function Sidebar() {
           Settings
         </NavLink>
         <NavLink
-          to="/subscriptions"
+          to="/bills"
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
           }
         >
-          Subscriptions
+          Bills
         </NavLink>
       </nav>
     </aside>
