@@ -25,3 +25,24 @@ export const updateCustomer = async (id,customer) => {
 export const deleteCustomer = async (id) => {
     await api.delete(`/customers/${id}`);
 };
+
+export const assignPlan= async (customerId,planId)=>{
+     const response = await api.put(`/customers/${customerId}/assign-plan/${planId}`,customerId,planId);
+    return response.data;
+}
+
+export const upgradePlan = async (customerId, planId) => {
+    const response = await api.put(
+        `/customers/${customerId}/upgrade-plan/${planId}`
+    );
+
+    return response.data;
+};
+
+export const downgradePlan = async (customerId, planId) => {
+    const response = await api.put(
+        `/customers/${customerId}/downgrade-plan/${planId}`
+    );
+
+    return response.data;
+};
