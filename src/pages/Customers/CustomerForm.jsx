@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createCustomer,
   updateCustomer,
 } from "../../services/customerServices";
 import { useNavigate } from "react-router-dom";
+import { getPlans } from "../../services/planServices";
 
 function CustomerForm({ customer}) {
 
     const navigate= useNavigate();
+
+    const[plans,setPlans]= useState([]);
+    const [loadingPlans,setLoadingPlans]=useState(true);
 
     const [formData, setFormData] = useState(
         customer||{
@@ -15,8 +19,24 @@ function CustomerForm({ customer}) {
         email: "",
         phone: "",
         address: "",
-        status: "ACTIVE",
+        status: "ACTIVE"
     });
+
+    useEffect(()=>{
+        const fetchPlans= async()=>{
+            try{
+                const data= await getPlans();
+                setPlans(data);
+            } catch (error){
+                console.error(error);
+            } finally{
+                setLoadingPlans(false);
+            }
+        };
+        fetchPlans();
+    },[]);
+
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -48,6 +68,7 @@ function CustomerForm({ customer}) {
             alert("Address is required");
             return;
         }
+
         try{
             if(customer){
                 await updateCustomer(customer.id,formData);
