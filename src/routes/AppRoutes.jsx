@@ -15,6 +15,7 @@ import CustomerEditPage from "../pages/Customers/CustomerEditPage";
 import CustomerFormPage from "../pages/Customers/CustomerFormPage";
 import PlansPage from "../pages/Plans/PlansPage";
 import BillPage from "../pages/Bills/BillPage";
+import ComplaintPage from "../pages/Complaints/ComplaintPage";
 
 
 
@@ -38,7 +39,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/complaints"
-                            element={<Complaints/>}
+                            element={<ComplaintPage/>}
                         />
                         <Route
                             path="/customers"
