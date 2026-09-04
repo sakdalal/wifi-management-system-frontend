@@ -1,6 +1,9 @@
 import { useState,useEffect } from "react";
-import { deleteComplaint, getComplaints } from "../../services/complaintServices";
+import { deleteComplaint, getComplaints , 
+    assignEmployee, updateComplaintStatus,
+    getComplaintDashboardCounts} from "../../services/complaintServices";
 import ComplaintForm from "./ComplaintForm";
+import { getEmployees } from "../../services/employeeService";
 
 function ComplaintPage(){
 
@@ -9,6 +12,8 @@ function ComplaintPage(){
     const [error,setError]=useState(null);
     const [statusFilter,setStatusFilter]=useState("ALL");
     const [showForm,setShowForm] = useState(false);
+    const [employees,setEmployees]=useState([]);
+    const [counts,setCounts]=useState({});
 
 
     useEffect(()=>{
@@ -18,8 +23,14 @@ function ComplaintPage(){
     const fetchComplaints=async()=>{
         try{
             setLoading(true);
-            const data= await getComplaints();
-            setComplaints(data);
+            const complaintData= await getComplaints();
+            setComplaints(complaintData);
+
+            const employeeData= await getEmployees();
+            setEmployees(employeeData);
+
+            const dashboardData= await getComplaintDashboardCounts();
+            setCounts(dashboardData);  
 
         }catch (error){
             console.error(error);
@@ -43,6 +54,10 @@ function ComplaintPage(){
             setComplaints((previous)=>
                 previous.filter((complaint)=> complaint.id !==id)
             );
+
+            const dashboardData= await getComplaintDashboardCounts();
+            setCounts(dashboardData);
+
             alert("Complaint deleted successfully");
 
         } catch(error){
@@ -52,6 +67,43 @@ function ComplaintPage(){
 
     }
 
+
+    const handleStatusChange = async (id,status)=>{
+
+        try{
+
+            const updatedComplaint = await updateComplaintStatus(id,status);
+
+            setComplaints((previous)=> 
+                previous.map((complaint)=>
+                    complaint.id === id ? updatedComplaint : complaint
+            ));
+            const dashboardData= await getComplaintDashboardCounts();
+            setCounts(dashboardData);
+
+        }catch(error){
+            console.error(error);
+            alert("Failed to update complaint status");
+        }
+
+    };
+
+
+    const handleAssignEmployee = async (id,employeeId)=>{
+
+        try{
+
+            const updateComplaint = await assignEmployee(id,Number(employeeId));
+
+            setComplaints((previous)=>
+                previous.map((complaint)=>
+                    complaint.id === id ? updateComplaint : complaint));
+
+        } catch(error){
+            console.error(error);
+            alert("Failed to assign employee ");
+        }
+    };
 
 
     const filteredComplaints= 
@@ -84,6 +136,29 @@ function ComplaintPage(){
                     }}
                 />
             )}
+
+
+            <div>
+                <div>
+                    <h3>Total</h3>
+                    <p>{counts.total ?? 0}</p>
+                </div>
+
+                <div>
+                    <h3>Open</h3>
+                    <p>{counts.open ?? 0}</p>
+                </div>
+
+                <div>
+                    <h3>In Progress</h3>
+                    <p>{counts.inProgress ?? 0}</p>
+                </div>
+
+                <div>
+                    <h3>Resolved</h3>
+                    <p>{counts.resolved ?? 0}</p>
+                </div>
+            </div>
 
             <div>
                 <label>Status: </label>
@@ -136,8 +211,46 @@ function ComplaintPage(){
                             <td>{complaint.customerName}</td>
                             <td>{complaint.title}</td>
                             <td>{complaint.priority}</td>
-                            <td>{complaint.assignedEmployee ? complaint.assignedEmployee : "Unassigned"}</td>
-                            <td>{complaint.status}</td>
+                            <td>
+                                <select
+                                    value={complaint.assignedEmployeeId || ""}
+                                    onChange={(event)=> 
+                                        handleAssignEmployee(complaint.id,event.target.value)}   
+                                >
+
+                                    {!complaint.assignedEmployeeId && (
+                                        <option value="" disabled>Unassigned</option>
+                                    )}
+                                    
+                                    {employees.map((employee)=>(
+                                        <option
+                                            key={employee.id}
+                                            value={employee.id}
+                                        >{employee.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </td>
+                            <td>
+                                <select
+                                    value={complaint.status}
+                                    onChange={(event)=>
+                                        handleStatusChange(complaint.id,event.target.value)}
+                                >
+                                    {complaint.assignedEmployeeId ? (
+                                        <>
+                                            <option value="ASSIGNED">Assigned</option>
+                                            <option value="RESOLVED">Resolved</option>
+                                        </>
+                                    ):(
+                                        <>
+                                            <option value="OPEN">Open</option>
+                                            <option value="IN_PROGRESS">In Progress</option>
+                                        </>
+                                    )}
+                                    
+                                </select>
+                            </td>
                             <td>{new Date(complaint.createdAt).toLocaleDateString()}</td>
                             <td>
                                 <button onClick={()=>handleDelete(complaint.id)}>Delete</button>
