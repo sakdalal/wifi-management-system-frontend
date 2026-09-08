@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import { generateBill, getBills } from "../../services/billService";
 import { getCustomers } from "../../services/customerServices";
 import { getPlans } from "../../services/planServices";
+import PaymentForm from "../Payments/PaymentForm";
 
 function BillPage(){
 
@@ -9,6 +10,7 @@ function BillPage(){
     const[loading,setLoading]=useState(true);
     const [error,setError]=useState(null);
     const [customers,setCustomers]=useState([]);
+     const [selectedBill, setSelectedBill] = useState(null);
 
     const [formData, setFormData] = useState({
         customerId: ""
@@ -133,6 +135,7 @@ function BillPage(){
                         <th>Billing Month</th>
                         <th>Due Date</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
 
                 </thead>
@@ -146,13 +149,32 @@ function BillPage(){
                             <td>{bill.billingMonth}</td>
                             <td>{bill.dueDate}</td>
                             <td>{bill.paymentStatus}</td>
+                            <td>
+                                {bill.paymentStatus === "PENDING" &&(
+                                    <button onClick={()=>setSelectedBill(bill)}>
+                                        Pay Bill
+                                    </button>
+                                )}
+                                {bill.paymentStatus === "PAID" && (
+                                    <span>Paid</span>
+                                )}
+                            </td>
 
                         </tr>
                     ))}
 
                 </tbody>
             </table>
-
+            {selectedBill && (
+                <PaymentForm
+                    bill={selectedBill}
+                    onCancel={() => setSelectedBill(null)}
+                    onPaymentSuccess={() => {
+                        setSelectedBill(null);
+                        fetchBills();
+                    }}
+                />
+            )}
         </div>
         
 

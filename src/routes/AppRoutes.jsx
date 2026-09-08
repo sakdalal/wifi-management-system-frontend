@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import Complaints from "../pages/Complaints";
 import Customers from "../pages/Customers";
-import Payments from "../pages/Payments";
 import Settings from "../pages/Settings";
 import Plans from "../pages/Plans";
 import Dashboard from "../pages/Dashboard";
@@ -16,6 +15,7 @@ import CustomerFormPage from "../pages/Customers/CustomerFormPage";
 import PlansPage from "../pages/Plans/PlansPage";
 import BillPage from "../pages/Bills/BillPage";
 import ComplaintPage from "../pages/Complaints/ComplaintPage";
+import PaymentsPage from "../pages/Payments/PaymentsPage";
 
 
 
@@ -59,7 +59,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/payments"
-                            element={<Payments/>}
+                            element={<PaymentsPage/>}
                         />
                         <Route
                             path="/plans"
