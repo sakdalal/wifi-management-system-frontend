@@ -16,6 +16,8 @@ import PlansPage from "../pages/Plans/PlansPage";
 import BillPage from "../pages/Bills/BillPage";
 import ComplaintPage from "../pages/Complaints/ComplaintPage";
 import PaymentsPage from "../pages/Payments/PaymentsPage";
+import SettingsPage from "../pages/Settings/SettingsPage";
+import LoginPage from "../pages/Login/LoginPage";
 
 
 
@@ -23,6 +25,11 @@ function AppRoutes(){
     return(
         <BrowserRouter>
             <Routes>
+
+                <Route
+                    path="/login"
+                    element={<LoginPage/>}
+                />
 
                 <Route
                     path="/"
@@ -67,7 +74,7 @@ function AppRoutes(){
                         />
                         <Route
                             path="/settings"
-                            element={<Settings/>}
+                            element={<SettingsPage/>}
                         />
                         <Route
                             path="/bills"
