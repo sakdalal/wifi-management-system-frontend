@@ -2,11 +2,11 @@ import { Navigate,Outlet } from "react-router-dom";
 
 function ProtectedRoute(){
 
-    // const token=localStorage.getItem("token");
+    const token=localStorage.getItem("accessToken");
 
-    // if(!token){
-    //     return <Navigate to="/login" replace/>;
-    // }
+    if(!token){
+        return <Navigate to="/login" replace/>;
+    }
 
     return <Outlet/>;
 
