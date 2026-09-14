@@ -30,6 +30,11 @@ function LoginPage(){
                 data.refreshToken
             );
 
+            localStorage.setItem(
+                "companyId",
+                data.companyId
+            );
+
             navigate("/dashboard");
 
         }catch(error){

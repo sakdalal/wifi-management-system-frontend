@@ -14,6 +14,12 @@ export const refreshToken = async (refreshTokenValue) => {
 };
 
 export const logout = async () => {
-    const response = await api.post("/auth/logout");
-    return response.data;
+    try{
+     await api.post("/auth/logout");
+    } finally {
+    localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        window.location.href = "/login";
+    }
 };
