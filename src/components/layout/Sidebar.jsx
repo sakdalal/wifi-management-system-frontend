@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
+import { logout } from "../../services/authService";
 
 function Sidebar() {
   return (
@@ -64,6 +65,10 @@ function Sidebar() {
           Bills
         </NavLink>
       </nav>
+
+      <button onClick={logout}>
+        Logout
+      </button>
     </aside>
   );
 }
