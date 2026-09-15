@@ -140,8 +140,8 @@ function ComplaintPage(){
 
             <div>
                 <div>
-                    <h3>Total</h3>
-                    <p>{counts.total ?? 0}</p>
+                    <h3>Current Complaints</h3>
+                    <p>{(counts.open ?? 0)+(counts.inProgress ?? 0)}</p>
                 </div>
 
                 <div>

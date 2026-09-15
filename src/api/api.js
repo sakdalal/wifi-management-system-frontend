@@ -113,6 +113,9 @@ api.interceptors.response.use(
             const newCompanyId =
                response.data.companyId;
 
+            const newRole=
+                response.data.role;
+
             // Store new tokens
             localStorage.setItem(
                 "accessToken",
@@ -130,6 +133,13 @@ api.interceptors.response.use(
                 localStorage.setItem(
                     "companyId",
                     newCompanyId
+                );
+            }
+
+            if(newRole){
+                localStorage.setItem(
+                    "role",
+                    newRole
                 );
             }
 
@@ -154,6 +164,7 @@ api.interceptors.response.use(
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("companyId");
+            localStorage.removeItem("role");
 
             window.location.href = "/login";
 

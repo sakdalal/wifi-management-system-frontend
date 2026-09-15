@@ -35,6 +35,11 @@ function LoginPage(){
                 data.companyId
             );
 
+            localStorage.setItem(
+                "role",
+                data.role
+            );
+
             navigate("/dashboard");
 
         }catch(error){
