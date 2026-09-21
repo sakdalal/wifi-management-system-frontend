@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import { getProfile, updateProfile } from "../../services/userService";
+import { changePassword } from "../../services/authService";
 
 function SettingsPage(){
 
@@ -13,6 +14,16 @@ function SettingsPage(){
     const[saving,setSaving]=useState(false);
     const[error,setError]=useState(null);
     const[success,setSuccess]=useState("");
+
+    const[passwordData,setPasswordData]=useState({
+        currentPassword:"",
+        newPassword:"",
+        confirmPassword:""
+    });
+
+    const [passwordLoading,setPasswordLoading]=useState(false);
+    const [passwordError, setPasswordError] = useState(""); 
+    const [passwordSuccess, setPasswordSuccess] = useState("");
 
 
     useEffect(()=>{
@@ -75,6 +86,60 @@ function SettingsPage(){
         }
     };
 
+    const handlePasswordChange= (event)=>{
+        const{name,value}=event.target;
+        setPasswordData(prev=>({
+            ...prev,
+            [name]:value
+        }));
+    };
+
+    const handlePasswordSubmit =async (event)=>{
+        event.preventDefault();
+        setPasswordError("");
+        setPasswordSuccess("");
+        const { currentPassword, newPassword, confirmPassword } = passwordData;
+
+
+        if(!currentPassword || !newPassword || !confirmPassword){
+            setPasswordError("Please fill all password fields");
+            return;
+        }
+
+        if(newPassword !== confirmPassword){
+            setPasswordError("New password and confirm Password do not match");
+            return;
+        }
+
+        if(newPassword === currentPassword){
+            setPasswordError("new Password cannot be same as the current Password");
+            return;
+        }
+
+        try{
+            setPasswordLoading(true);
+            const response= await changePassword(currentPassword,newPassword,confirmPassword);
+            setPasswordSuccess(response || "Password changed Successfully");
+
+            setPasswordData({
+                currentPassword:"",
+                newPassword:"",
+                confirmPassword:""
+            });
+
+        }catch(error){
+            console.error("Change password error:", error);
+            const message = error.response?.data?.message ||
+                                error.response?.data || 
+                                    "Failed to change password.";
+            setPasswordError(message);
+
+        }finally{
+            setPasswordLoading(false);
+        }
+
+    }
+
 
     if(loading){
         return <p>Loading Profile....</p>
@@ -127,6 +192,63 @@ function SettingsPage(){
                     >
                         {saving ? "Saving...." : "Save Changes"}
                     </button>
+            </form>
+
+            <hr />
+
+            <h2>Change Password</h2>
+
+            {passwordError && (
+                <p style={{color: "red"}}>{passwordError}</p>
+            )}
+
+            {passwordSuccess && (
+                <p style={{color:"green"}}>{passwordSuccess}</p>
+            )}
+
+            <form onSubmit={handlePasswordSubmit}>
+
+                <div>
+                    <label>Current Password</label>
+                    <input
+                        type="password"
+                        name="currentPassword"
+                        value={passwordData.currentPassword}
+                        onChange={handlePasswordChange}
+                        placeholder="Enter current Password"
+                    />
+                </div>
+
+                <div>
+                    <label>New Password</label>
+                    <input
+                        type="password"
+                        name="newPassword"
+                        value={passwordData.newPassword}
+                        onChange={handlePasswordChange}
+                        placeholder="Enter new Password"
+                    />
+                </div>
+
+                <div> 
+                    <label>Confirm New Password</label> 
+                    <input 
+                        type="password" 
+                        name="confirmPassword" 
+                        value={passwordData.confirmPassword} 
+                        onChange={handlePasswordChange} 
+                        placeholder="Confirm new password" 
+                    /> 
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={passwordLoading}
+                >
+                    {passwordLoading ? "Changing password..." : "Change Password"}
+                </button>
+
+
             </form>
 
 
