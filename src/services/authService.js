@@ -23,3 +23,10 @@ export const logout = async () => {
         window.location.href = "/login";
     }
 };
+
+
+export const changePassword= async(currentPassword, newPassword, confirmPassword)=>{
+
+    const response= await api.put("/auth/change-password",{currentPassword,newPassword,confirmPassword});
+    return response.data;
+}
