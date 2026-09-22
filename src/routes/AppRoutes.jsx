@@ -1,12 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
-import Complaints from "../pages/Complaints";
-import Customers from "../pages/Customers";
-import Settings from "../pages/Settings";
-import Plans from "../pages/Plans";
-import Dashboard from "../pages/Dashboard";
-import Subscriptions from "../pages/Subscriptions";
-import NotFound from "../pages/NotFound";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import NotFound from "../pages/Dashboard/NotFound";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import CustomerPage from "../pages/Customers/CustomerPage";
 import CustomerDetailPage from "../pages/Customers/CustomerDetailPage";

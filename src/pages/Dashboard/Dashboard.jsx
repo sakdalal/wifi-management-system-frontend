@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import api from "../api/api";
-import KPICard from "../components/dashboard/KPICard.jsx";
-import RevenueChart from "../components/dashboard/RevenueChart.jsx";
-import CustomerGrowthChart from "../components/dashboard/CustomerGrowthChart.jsx";
-import ComplaintChart from "../components/dashboard/ComplaintChart.jsx";
-import TopPlans from "../components/dashboard/TopPlans.jsx";
+import api from "../../api/api.js";
+import KPICard from "../../components/dashboard/KPICard.jsx";
+import RevenueChart from "../../components/dashboard/RevenueChart.jsx";
+import CustomerGrowthChart from "../../components/dashboard/CustomerGrowthChart.jsx";
+import ComplaintChart from "../../components/dashboard/ComplaintChart.jsx";
+import TopPlans from "../../components/dashboard/TopPlans.jsx";
 
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
