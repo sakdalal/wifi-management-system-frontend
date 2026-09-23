@@ -16,13 +16,13 @@ function ComplaintChart({data}){
 
                 <PieChart>
                     <Pie  data={chartData}
-                    dataKey="value"
+                    dataKey="value" 
                     nameKey="name"
                     outerRadius={100}/>
+            
+                    <Tooltip/>
+                    <Legend/>
                 </PieChart>
-
-                <Tooltip/>
-                <Legend/>
 
             </ResponsiveContainer>
 
