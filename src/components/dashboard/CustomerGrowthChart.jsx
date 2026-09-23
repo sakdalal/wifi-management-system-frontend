@@ -23,7 +23,12 @@ function CustomerGrowthChart({ data }) {
 
           <Tooltip />
 
-          <Line type="monotone" dataKey="customerCount" />
+          <Line type="monotone"
+            dataKey="customerCount"
+            stroke="#2f67d8"
+            strokeWidth={3}
+            dot={{ r: 4 }}
+            activeDot={{ r: 6 }}/>
           
         </LineChart>
       </ResponsiveContainer>

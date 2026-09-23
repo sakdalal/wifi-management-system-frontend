@@ -5,6 +5,7 @@ import RevenueChart from "../../components/dashboard/RevenueChart.jsx";
 import CustomerGrowthChart from "../../components/dashboard/CustomerGrowthChart.jsx";
 import ComplaintChart from "../../components/dashboard/ComplaintChart.jsx";
 import TopPlans from "../../components/dashboard/TopPlans.jsx";
+import "./Dashboard.css";
 
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -23,30 +24,29 @@ function Dashboard() {
   };
 
   if (!dashboardData) {
-  return (
-    <div className="dashboard">
-      <div className="dashboard-content">
-        <h1>Loading Dashboard.......</h1>
+    return (
+      <div className="dashboard">
+        <div className="dashboard-content">
+          <h1>Loading Dashboard.......</h1>
 
-        <div className="kpi-container">
-          <div className="kpi-skeleton"></div>
-          <div className="kpi-skeleton"></div>
-          <div className="kpi-skeleton"></div>
-          <div className="kpi-skeleton"></div>
+          <div className="kpi-container">
+            <div className="kpi-skeleton"></div>
+            <div className="kpi-skeleton"></div>
+            <div className="kpi-skeleton"></div>
+            <div className="kpi-skeleton"></div>
+          </div>
+
+          <div className="chart-skeleton"></div>
+          <div className="chart-skeleton"></div>
         </div>
-
-        <div className="chart-skeleton"></div>
-        <div className="chart-skeleton"></div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="dashboard">
       <div className="dashboard-content">
         <h1>Dashboard</h1>
-        {/* <pre>{JSON.stringify(dashboardData, null, 2)};</pre> */}
 
         <div className="kpi-container">
           <KPICard
@@ -56,7 +56,7 @@ function Dashboard() {
 
           <KPICard
             title="Monthly Revenue"
-            value={`$${dashboardData.totalCustomers}`}
+            value={`₹${dashboardData.totalRevenue || 0}`}
           />
 
           <KPICard title="New customers" value={dashboardData.newCustomers} />
@@ -67,10 +67,12 @@ function Dashboard() {
           />
         </div>
 
-        <RevenueChart data={dashboardData.monthlyRevenue || []} />
-        <CustomerGrowthChart data={dashboardData.customerGrowth || []} />
-        <ComplaintChart data={dashboardData.complaintStats || []} />
-        <TopPlans data={dashboardData.topPlans || []} />
+        <div className="chart-grid">
+          <RevenueChart data={dashboardData.monthlyRevenue || []} />
+          <CustomerGrowthChart data={dashboardData.customerGrowth || []} />
+          <ComplaintChart data={dashboardData.complaintStats || []} />
+          <TopPlans data={dashboardData.topPlans || []} />
+        </div>
       </div>
     </div>
   );

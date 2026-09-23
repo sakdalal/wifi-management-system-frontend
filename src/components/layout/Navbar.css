@@ -7,3 +7,51 @@
     justify-content: space-between;
     padding: 0 24px;
 }
+.navbar {
+    height: 64px;
+
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    box-sizing: border-box;
+}
+
+/* App title */
+.navbar h1 {
+    margin: 0;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+/* Right side */
+.navbar > div {
+    display: flex;
+    align-items: center;
+}
+
+/* Role */
+.navbar span {
+    display: flex;
+    align-items: center;
+
+    padding: 7px 14px;
+
+    background-color: #eef2ff;
+    color: #2f67d8;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
