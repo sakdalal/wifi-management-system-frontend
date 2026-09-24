@@ -3,13 +3,14 @@ import { generateBill, getBills } from "../../services/billService";
 import { getCustomers } from "../../services/customerServices";
 import { getPlans } from "../../services/planServices";
 import PaymentForm from "../Payments/PaymentForm";
+import "./BillPage.css";
 
 function BillPage(){
 
     const[bills,setBills]=useState([]);
     const[loading,setLoading]=useState(true);
     const [error,setError]=useState(null);
-    const [customers,setCustomers]=useState([]);
+    const [customers,setCustomers]=useState({ content: [] });
      const [selectedBill, setSelectedBill] = useState(null);
 
     const [formData, setFormData] = useState({
@@ -95,14 +96,19 @@ function BillPage(){
     }
 
     return(
-        <div>
+        <div className="bill-page">
             <h1>Bills</h1>
+
+            <div className="create-bill-card">
+
+            
 
             <h2>Create Bill</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form className="bill-form" 
+                onSubmit={handleSubmit}>
 
-                <div>
+                <div className="bill-form-group">
                     <label>Customer</label>
                     <select
                         name="customerId"
@@ -121,12 +127,16 @@ function BillPage(){
 
                 {formError && <p>{formError}</p>}
                         
-                <button type="submit">Create Bill</button>
+                <button className="create-bill-button"
+                    type="submit">Create Bill</button>
 
             </form>
 
+            </div>
 
-            <table>
+
+            <div className="bills-table-card">
+            <table className="bills-table">
                 <thead>
                     <tr>
                         <th>Customer</th>
@@ -148,15 +158,26 @@ function BillPage(){
                             <td>₹{bill.amount}</td>
                             <td>{bill.billingMonth}</td>
                             <td>{bill.dueDate}</td>
-                            <td>{bill.paymentStatus}</td>
+                            <td>
+                                <span
+                                    className={`bill-status ${
+                                        bill.paymentStatus === "PAID"
+                                            ? "paid"
+                                            : "pending"
+                                    }`}
+                                >
+                                    {bill.paymentStatus}
+                                </span>
+                            </td>
                             <td>
                                 {bill.paymentStatus === "PENDING" &&(
-                                    <button onClick={()=>setSelectedBill(bill)}>
+                                    <button className="pay-bill-button" 
+                                        onClick={()=>setSelectedBill(bill)}>
                                         Pay Bill
                                     </button>
                                 )}
                                 {bill.paymentStatus === "PAID" && (
-                                    <span>Paid</span>
+                                    <span className="paid-label">Paid</span>
                                 )}
                             </td>
 
@@ -165,6 +186,7 @@ function BillPage(){
 
                 </tbody>
             </table>
+            </div>
             {selectedBill && (
                 <PaymentForm
                     bill={selectedBill}
