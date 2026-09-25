@@ -58,7 +58,8 @@ function ComplaintForm({onSuccess}){
     };
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form className="complaint-form"
+        onSubmit={handleSubmit}>
             <div>
                 <label>Customer ID</label>
                 <input
