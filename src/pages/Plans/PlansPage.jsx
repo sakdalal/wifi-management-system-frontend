@@ -2,6 +2,7 @@
 import { useState,useEffect } from "react";
 import { deletePlan, getPlans } from "../../services/planServices";
 import PlanForm from "./PlanForm";
+import "./PlansPage.css";
 
 function PlansPage(){
 
@@ -55,9 +56,11 @@ function PlansPage(){
         }
 
         return(
-            <div>
+            <div className="plans-page">
                 <h1>Plans</h1>
-                <button onClick={()=> setSelectedPlan("new")}>
+                <button 
+                    className="add-plan-button"
+                    onClick={()=> setSelectedPlan("new")}>
                     + Add Plan
                 </button>
                 { selectedPlan && (
@@ -71,16 +74,50 @@ function PlansPage(){
 
                 )}
 
-                <div>
+                <div className="plans-grid">
                     {plans.map((plan)=>(
-                        <div key={plan.id}> 
+                        <div className="plan-card"
+                            key={plan.id}> 
 
                         <h2>{plan.planName}</h2>
-                        <p>₹{plan.price}/month</p>
-                        <p>{plan.speedMbps}</p>
-                        <p>{plan.planStatus}</p>
-                        <button onClick={()=>setSelectedPlan(plan)}>Edit</button>
-                        <button onClick={()=>handleDelete(plan.id)}>Delete</button>
+                        <p className="plan-price">
+                            ₹{plan.price}
+                            <span>/month</span>
+                        </p>
+                        <div className="plan-info">
+                            <p>
+                                Speed: <strong>{plan.speedMbps} Mbps</strong>
+                            </p>
+
+                            <p>
+                                Validity: <strong>{plan.validityDays} days</strong>
+                            </p>
+
+                            <span
+                                className={`plan-status ${
+                                    plan.planStatus === "ACTIVE"
+                                        ? "active"
+                                        : "inactive"
+                                }`}
+                            >
+                                {plan.planStatus}
+                            </span>
+                        </div>
+                        <div className="plan-actions">
+                            <button
+                                className="edit-plan-button"
+                                onClick={() => setSelectedPlan(plan)}
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                className="delete-plan-button"
+                                onClick={() => handleDelete(plan.id)}
+                            >
+                                Delete
+                            </button>
+                        </div>
 
                         </div>
                     ))}

@@ -37,7 +37,8 @@ function PlanForm({ plan, onSuccess }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="plan-form"
+            onSubmit={handleSubmit}>
         <input
             name="planName"
             value={formData.planName}
