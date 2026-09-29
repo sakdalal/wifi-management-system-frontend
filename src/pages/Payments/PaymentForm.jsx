@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { payBill } from "../../services/paymentServices";
+import "./PaymentsPage.css";
 
 function PaymentForm ({bill,onPaymentSuccess,onCancel}){
 
@@ -27,17 +28,26 @@ function PaymentForm ({bill,onPaymentSuccess,onCancel}){
     }
 
     return(
-        <div>
+        <div className="payment-modal-overlay">
+        <div className="payment-modal">
             <h2>Pay Bill</h2>
-            <p>Bill ID: {bill.id}</p>
-            <p>Amount: ₹{bill.amount}</p>
-            <form onSubmit={handleSubmit}>
+            <div className="payment-bill-info">
+                <p>
+                    Bill ID: <strong>#{bill.id}</strong>
+                </p>
+
+                <p>
+                    Amount: <strong>₹{bill.amount}</strong>
+                </p>
+            </div>
+            <form className="payment-form" 
+                onSubmit={handleSubmit}>
 
                 {error && (
-                    <p>{error}</p>
+                    <p className="payment-form-error">{error}</p>
                 )}
 
-                <div>
+                <div className="payment-form-group">
                     <label>Payment Method</label>
                     <select value={paymentMethod}
                             onChange={(event)=>setPaymentMethod(event.target.value)}>
@@ -49,7 +59,7 @@ function PaymentForm ({bill,onPaymentSuccess,onCancel}){
 
                 <br/>
 
-                <div>
+                <div className="payment-form-group">
                     <label>Transaction ID</label>
                     <input
                         type="text"
@@ -62,18 +72,24 @@ function PaymentForm ({bill,onPaymentSuccess,onCancel}){
                     />
                 </div>
 
+                <div className="payment-form-actions">
+
                 <button type="submit"
+                        className="pay-submit-button"
                         disabled={loading}>
                     {loading ? "Processing..." : "Pay Bill"}
                 </button>
 
                 <button type="button"
+                    className="cancel-payment-button"
                     onClick={onCancel}
                     disabled={loading}
                 >
                 Cancel
                 </button>
+                </div>
             </form>
+        </div>
         </div>
     );
 

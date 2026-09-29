@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { getPayments } from "../../services/paymentServices";
 import BillPage from "../Bills/BillPage";
+import "./PaymentsPage.css";
 
 function PaymentsPage(){
 
@@ -26,20 +27,21 @@ function PaymentsPage(){
     },[]);
 
     if(loading){
-        return <p>Loading Payments....</p>
+        return <p className="payments-loading">Loading Payments....</p>
     }
 
     if(error){
-        return <p>{error}</p>
+        return <p className="payments-error">{error}</p>
     }
 
     return(
-        <div>
+        <div className="payments-page">
             <h1>Payments</h1>
             {payments.length === 0 ? (
-                <p>No Payments found</p>
+                <p className="payments-empty">No Payments found</p>
             ) :(
-                <table>
+                <div className="payments-table-card">
+                <table className="payments-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -65,11 +67,18 @@ function PaymentsPage(){
                                         ).toLocaleDateString()
                                         : "-"}
                                 </td>
-                                <td>{payment.status}</td>
+                                <td>
+                                    <span
+                                        className={`payment-status ${payment.status?.toLowerCase()}`}
+                                    >
+                                        {payment.status}
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                </div>
             )}
         </div>
     );
