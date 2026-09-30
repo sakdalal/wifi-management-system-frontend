@@ -4,6 +4,8 @@ import { getCustomers, deleteCustomer } from "../../services/customerServices";
 
 import { useNavigate } from "react-router-dom";
 
+import "./Customer.css";
+
 function CustomerPage() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,17 +69,24 @@ function CustomerPage() {
   }
 
   return (
-    <div>
+    <div className="customer-page">
       <h1>Customers</h1>
-      <button onClick={()=> navigate("/customers/new")}>+ Add Customer</button>
+      <div className="customer-actions">
+      <button 
+        className="add-customer-button"
+        onClick={()=> navigate("/customers/new")}>+ Add Customer</button>
       <input
+        className="customer-search"
         type="text"
         placeholder="Search Customers..."
         value={search}
         onChange={(event)=>setSearch(event.target.value)}
       />
+      </div>
 
-      <table>
+
+      <div className="customer-table-card">
+      <table className="customer-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -109,17 +118,26 @@ function CustomerPage() {
 
               <td>{customer.currentPlan}</td>
 
+              <div className="customer-table-actions">
               <td>
-                <button onClick={()=>navigate(`/customers/${customer.id}`)}>View</button>
-                <button onClick={()=>navigate(`/customers/${customer.id}/edit`)}>Edit</button>
-                <button onClick={()=>{handleDelete(customer.id)}}>Delete</button>
+                <button 
+                  className="customer-view-button"
+                  onClick={()=>navigate(`/customers/${customer.id}`)}>View</button>
+                <button 
+                  className="customer-edit-button"
+                  onClick={()=>navigate(`/customers/${customer.id}/edit`)}>Edit</button>
+                <button 
+                  className="customer-delete-button"
+                  onClick={()=>{handleDelete(customer.id)}}>Delete</button>
               </td>
+              </div>
             </tr>
           ))
           )
           }
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

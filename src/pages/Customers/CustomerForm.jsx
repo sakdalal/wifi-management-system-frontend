@@ -5,6 +5,8 @@ import {
 } from "../../services/customerServices";
 import { useNavigate } from "react-router-dom";
 import { getPlans } from "../../services/planServices";
+import "./Customer.css";
+
 
 function CustomerForm({ customer}) {
 
@@ -85,8 +87,8 @@ function CustomerForm({ customer}) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-        <div>
+        <form className="customer-form" onSubmit={handleSubmit}>
+        <div className="customer-form-group">
             <label>Name</label>
             <input
             name="name"
@@ -95,7 +97,7 @@ function CustomerForm({ customer}) {
             placeholder="Name"
             />
         </div>
-        <div>
+        <div className="customer-form-group">
             <label>Email</label>
             <input
             name="email"
@@ -104,7 +106,7 @@ function CustomerForm({ customer}) {
             placeholder="Email"
             />
         </div>
-        <div>
+        <div className="customer-form-group">
             <label>Phone</label>
             <input
             name="phone"
@@ -113,7 +115,7 @@ function CustomerForm({ customer}) {
             placeholder="Phone"
             />
         </div>
-        <div>
+        <div className="customer-form-group">
             <label>Address</label>
             <input
             name="address"
@@ -122,7 +124,7 @@ function CustomerForm({ customer}) {
             placeholder="Address"
             />
         </div>
-        <div>
+        <div className="customer-form-group">
             <label>Status</label>
             <select
                 name="status"
@@ -133,7 +135,9 @@ function CustomerForm({ customer}) {
             </select>
         </div>
 
-        <button type="submit">
+        <button 
+            className="customer-form-submit"
+            type="submit">
             {customer? "Update Customer" : "Create Customer"}
         </button>
         </form>
