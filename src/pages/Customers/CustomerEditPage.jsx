@@ -3,6 +3,8 @@ import { assignPlan, downgradePlan, getCustomer, upgradePlan } from "../../servi
 import { useParams } from "react-router-dom";
 import CustomerForm from "./CustomerForm";
 import { getPlans } from "../../services/planServices";
+import "./Customer.css";
+
 
 
 function CustomerEditPage(){
@@ -114,59 +116,82 @@ function CustomerEditPage(){
     }
 
     return(
-        <div>
+        <div className="customer-form-page">
             <h1>Edit Customer</h1>
             <CustomerForm customer={customer}/>
 
-            <hr />
+            <div className="customer-plan-section">
 
             <h2>Plan</h2>
 
+            
+
             {customer.planId ? (
-                <div> 
-                    <p>
-                        <strong>Current Plan:</strong>{" "}
-                        {customer.currentPlan}
-                    </p>
+                <div className="current-plan"> 
+                    <div className="customer-detail-card">
+                        <span className="customer-detail-label">
+                            Current Plan
+                        </span>
 
-                    <p>
-                        <strong>Speed:</strong>{" "}
-                        {customer.speed} Mbps
-                    </p>
+                        <span className="customer-detail-value">
+                            {customer.currentPlan}
+                        </span>
+                    </div>
+            
+                    <div className="customer-detail-card">
+                        <span className="customer-detail-label">
+                            Speed
+                        </span>
 
-                    <p>
-                        <strong>Price:</strong>{" "}
-                        ₹{customer.price}/month
-                    </p>
-                
+                        <span className="customer-detail-value">
+                            {customer.speed} Mbps
+                        </span>
+                    </div>
+                    <div className="customer-detail-card">
+                        <span className="customer-detail-label">
+                            Price
+                        </span>
+
+                        <span className="customer-detail-value">
+                            {customer.price}
+                        </span>
+                    </div>
                 </div>
             ) :(
-            <p> Customer does not have a plan </p>
+            <p className="customer-no-plan">
+                Customer does not have a plan 
+            </p>
             )}
+            
 
             {loadingPlans ? (
-                <p>Loading plans...</p>
+                <p className="customer-loading">
+                    Loading plans...
+                </p>
             ): (
-                <div>
-                    <label>Change Plan</label>
-                    <select 
-                        value={selectedPlanId}
-                        onChange={(event)=> setSelectedPlanId(event.target.value)}
-                    >
-                        <option value="">Select a plan</option>
-                        {plans
-                            .filter((plan) => plan.active)
-                            .map((plan) => (
-                                <option
-                                    key={plan.id}
-                                    value={plan.id}
-                                >
-                                    {plan.planName} - ₹{plan.price}/month
-                                </option>
-                        ))}
-                    </select>
+                <div className="change-plan">
+                    <div className="change-plan-group"> 
+                        <label>Change Plan</label>
+                        <select 
+                            value={selectedPlanId}
+                            onChange={(event)=> setSelectedPlanId(event.target.value)}
+                        >
+                            <option value="">Select a plan</option>
+                            {plans
+                                .filter((plan) => plan.active)
+                                .map((plan) => (
+                                    <option
+                                        key={plan.id}
+                                        value={plan.id}
+                                    >
+                                        {plan.planName} - ₹{plan.price}/month
+                                    </option>
+                            ))}
+                        </select>
+                    </div>
 
                     <button
+                        className="change-plan-button"
                         type="button"
                         onClick={handlePlanChange}
                         disabled={changingPlan}
@@ -180,6 +205,8 @@ function CustomerEditPage(){
 
                 </div>
             )}
+
+        </div>
 
         </div>
 

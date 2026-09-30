@@ -1,8 +1,10 @@
 import CustomerForm from "./CustomerForm";
+import "./Customer.css";
+
 
 function CustomerFormPage(){
     return(
-        <div>
+        <div className="customer-form-page">
             <h1>Add Customer</h1>
             <CustomerForm/>
         </div>
