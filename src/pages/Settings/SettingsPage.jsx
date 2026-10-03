@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { getProfile, updateProfile } from "../../services/userService";
 import { changePassword } from "../../services/authService";
+import "./Settings.css";
 
 function SettingsPage(){
 
@@ -146,69 +147,88 @@ function SettingsPage(){
     }
 
     return(
-        <div>
-            <h1>Settings</h1>
+        <div className="settings-page">
+            <div className="settings-header">
+                <h1>Settings</h1>
+                <p>Manage your profile and account security.</p>
+            </div>
 
-            <h2>Profile</h2>
+            <section className="settings-card">
+
+            <div className="settings-card-header">
+                <h2>Profile</h2>
+                <p>Update your personal information.</p>
+            </div>
+
             {error && (
-                <p style={{color:"red"}}>{error}</p>
+                <div className="settings-message settings-error">{error}</div>
             )}
             {success && (
-                <p style={{color:"green"}}>{success}</p>
+                <div className="settings-message settings-success">{success}</div>
             )}
 
-            <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={profile.name}
-                            onChange={handleChange}
-                        />
-                    </div>
+                <form 
+                    className="settings-form"
+                    onSubmit={handleSubmit}>
+                        <div className="settings-form-group">
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={profile.name}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <div>
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={profile.email}
-                            onChange={handleChange}
-                        />
-                    </div>
+                        <div className="settings-form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={profile.email}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <div>
-                        <label>Phone</label>
-                        <input
-                            type="text"
-                            name="phone"
-                            value={profile.phone}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <button type="submit"
-                        disabled={saving}
-                    >
-                        {saving ? "Saving...." : "Save Changes"}
-                    </button>
-            </form>
+                        <div className="settings-form-group">
+                            <label>Phone</label>
+                            <input
+                                type="text"
+                                name="phone"
+                                value={profile.phone}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <button 
+                            className="settings-primary-button"
+                            type="submit"
+                            disabled={saving}
+                        >
+                            {saving ? "Saving...." : "Save Changes"}
+                        </button>
+                </form>
+            </section>
 
-            <hr />
+            <section className="settings-card">
 
-            <h2>Change Password</h2>
+                <div className="settings-card-header">
+                    <h2>Change Password</h2>
+                    <p>Update your password to keep your account secure.</p>
+                </div>
 
             {passwordError && (
-                <p style={{color: "red"}}>{passwordError}</p>
+                <div className="settings-message settings-error">{passwordError}</div>
             )}
 
             {passwordSuccess && (
-                <p style={{color:"green"}}>{passwordSuccess}</p>
+                <div className="settings-message settings-success">{passwordSuccess}</div>
             )}
 
-            <form onSubmit={handlePasswordSubmit}>
+            <form 
+                className="settings-form"
+                onSubmit={handlePasswordSubmit}>
 
-                <div>
+                <div className="settings-form-group">
                     <label>Current Password</label>
                     <input
                         type="password"
@@ -219,7 +239,7 @@ function SettingsPage(){
                     />
                 </div>
 
-                <div>
+                <div className="settings-form-group">
                     <label>New Password</label>
                     <input
                         type="password"
@@ -230,7 +250,7 @@ function SettingsPage(){
                     />
                 </div>
 
-                <div> 
+                <div className="settings-form-group"> 
                     <label>Confirm New Password</label> 
                     <input 
                         type="password" 
@@ -242,6 +262,7 @@ function SettingsPage(){
                 </div>
 
                 <button
+                    className="settings-primary-button"
                     type="submit"
                     disabled={passwordLoading}
                 >
@@ -250,6 +271,8 @@ function SettingsPage(){
 
 
             </form>
+
+            </section>
 
 
         </div>
