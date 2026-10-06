@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
+import "./LoginPage.css";
 
 function LoginPage(){
 
@@ -55,15 +56,25 @@ function LoginPage(){
 
 
     return(
-        <div>
-            <h1>Login</h1>
+
+        <div className="login-page">
+            <div className="login-card">
+                <div className="login-header">
+                    <h1>Isp SaaS</h1>
+                    <p>Sign in to your account</p>
+                </div>
+
             {error && (
-                <p style={{color:"red"}}>{error}</p>
+                <div className="login-error">
+                    {error}
+                </div>
             )}
             
-            <form onSubmit={handleSubmit}>
+            <form 
+                className="login-form"
+            onSubmit={handleSubmit}>
 
-                <div>
+                <div className="login-form-group">
                     <label>Email</label>
                     <input
                         type="email"
@@ -75,7 +86,7 @@ function LoginPage(){
                     />
                 </div>
 
-                 <div>
+                 <div className="login-form-group">
                     <label>Password</label>
                     <input
                         type="password"
@@ -88,6 +99,7 @@ function LoginPage(){
                 </div>
 
                 <button
+                    className="login-button"
                     type="submit"
                     disabled={loading}
                 >
@@ -95,6 +107,7 @@ function LoginPage(){
                 </button>
 
             </form>
+            </div>
         </div>
     );
 
